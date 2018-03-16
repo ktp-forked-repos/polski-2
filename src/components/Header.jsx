@@ -14,7 +14,7 @@ class Header extends Component {
         <Navbar.Header>
           <Navbar.Brand>
             <LinkContainer to={'/'}>
-              <a>Duopettaja</a>
+              <a>Polski</a>
             </LinkContainer>
           </Navbar.Brand>
           <Navbar.Toggle/>

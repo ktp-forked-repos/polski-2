@@ -1,5 +1,5 @@
 {
-  "short_name": "Duopettaja",
+  "short_name": "polski",
   "name": "Duolingo Finnish",
   "icons": [
     {
@@ -35,6 +35,6 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#20a8e9",
+  "theme_color": "#ff0000",
   "background_color": "#ffffff"
 }

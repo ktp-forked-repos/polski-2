@@ -1,5 +1,5 @@
 {
-  "name": "duopettaja",
+  "name": "polski",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -58,7 +58,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "predeploy": "npm run build",
-    "deploy": "surge ./build -d https://duopettaja.surge.sh"
+    "deploy": "surge ./build -d https://polski.surge.sh"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
