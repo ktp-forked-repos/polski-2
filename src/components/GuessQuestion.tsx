@@ -1,9 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
-/* eslint-enable no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import '../styles/GuessQuestion.css'
 
 class GuessQuestion extends Component {
@@ -11,36 +7,36 @@ class GuessQuestion extends Component {
     super(props)
     this.state = {
       answer: {},
+      options: [],
       question: [],
-      options: []
     }
 
     this.getAnswer = this.getAnswer.bind(this)
   }
 
-  componentWillMount () {
+  public componentWillMount () {
     const { question, options } = this.props
     this.setState({question, options})
   }
   
-  componentWillReceiveProps (props) {
+  public componentWillReceiveProps (props) {
     const { question, options } = props
     this.setState({question, options})
   }
 
-  getAnswer (option) {
+  public getAnswer (option) {
     this.cleanSelectedAnswers()
     option.selected = true
     this.props.onChange(option)
   }
 
-  cleanSelectedAnswers () {
+  public cleanSelectedAnswers () {
     this.props.options.forEach(option => {
       option.selected = false
     })
   }
 
-  render () {
+  public render () {
     const { question, options } = this.state
     return (
       <div>
@@ -50,7 +46,7 @@ class GuessQuestion extends Component {
         <div className="row">
           {options.map(option =>
             <div key={option.id} className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              <div className={'well well-sm' + (option.selected ? ' selected' : '')} onClick={() => this.getAnswer(option)}>
+              <div className={'well well-sm' + (option.selected ? ' selected' : '')} onClick={this.getAnswer(option)}>
                 {option.text}
               </div>
             </div>
@@ -62,9 +58,9 @@ class GuessQuestion extends Component {
 }
 
 GuessQuestion.propTypes = {
+  onChange: PropTypes.func,
   options: PropTypes.array,
   question: PropTypes.string,
-  onChange: PropTypes.func
 }
 
 export default GuessQuestion

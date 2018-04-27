@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
 /* eslint-enable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import http from '../utils/http'
 
@@ -13,17 +13,17 @@ class FinishedLesson extends Component {
 
     const { questions, lessonId } = props.location.state
     this.state = { questions, lessonId }
-    console.log(this.state)
+    window.console.log(this.state)
   }
   
-  componentDidMount () {
+  public componentDidMount () {
     const data = { completed: true }
     http
       .put(`${process.env.REACT_APP_API}/lessons/${this.state.lessonId}/complete`, data)
       .then(console.log)
   }
 
-  render () {
+  public render () {
     return (
       <div>
         <h2>Finished :)</h2>

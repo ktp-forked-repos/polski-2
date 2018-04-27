@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
 /* eslint-enable no-unused-vars */
 import dotenv from 'dotenv'
-import http from '../utils/http'
-import SkillBadge from '../components/SkillBadge'
+import React, { Component } from 'react'
 import Loading from '../components/Loading'
+import SkillBadge from '../components/SkillBadge'
 import '../styles/Home.css'
+import http from '../utils/http'
 
 dotenv.config()
 
@@ -15,23 +15,23 @@ export default class Home extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      skills: [],
       errorMessage: '',
-      loading: true
+      loading: true,
+      skills: [],
     }
   }
 
-  componentDidMount () {
+  public componentDidMount () {
     http
       .get(`${process.env.REACT_APP_API}/skills`)
       .then(response => this.setState({ skills: response.data, loading: false }))
       .catch(error => {
-        console.log(error)
+        window.console.log(error)
         this.setState({ errorMessage: 'An error occured. Refresh the page.', loading: false })
       })
   }
 
-  render () {
+  public render () {
     const content = this.state.loading
       ? <Loading />
       : <div className="row">

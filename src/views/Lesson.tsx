@@ -2,28 +2,28 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { reachGoal } from '../actions'
 import CompoundQuestion from '../components/CompoundQuestion'
 import GuessQuestion from '../components/GuessQuestion'
 import Loading from '../components/Loading'
 import ProgressBar from '../components/ProgressBar'
-import { reachGoal } from '../actions'
-import { connect } from 'react-redux'
-import http from '../utils/http'
 import '../styles/Lesson.css'
+import http from '../utils/http'
 
 class Lesson extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      progress: 0,
-      currentQuestionIndex: 0,
-      questions: [],
       answers: [],
       correct: false,
+      currentQuestionIndex: 0,
+      disabledCheckButton: false,
+      progress: 0,
+      questions: [],
       visibleAnswerBox: false,
-      disabledCheckButton: false
     }
 
     this.nextQuestion = this.nextQuestion.bind(this)
@@ -31,7 +31,7 @@ class Lesson extends Component {
     this.getAnswer = this.getAnswer.bind(this)
   }
 
-  componentDidMount (props) {
+  public componentDidMount (props) {
     const { id } = this.props.match.params
     http
       .get(`${process.env.REACT_APP_API}/lessons/${id}/questions`)
@@ -40,13 +40,13 @@ class Lesson extends Component {
       })
   }
 
-  getAnswer (answer) {
+  public getAnswer (answer) {
     const { currentQuestionIndex, answers } = this.state
     answers[currentQuestionIndex] = answer
     this.setState(answers)
   }
 
-  render () {
+  public render () {
     if (this.state.questions.length) {
       let question
 
@@ -106,7 +106,7 @@ class Lesson extends Component {
     }
   }
 
-  checkAnswer () {
+  public checkAnswer () {
     const { currentQuestionIndex, questions, answers } = this.state
     const currentQuestion = questions[currentQuestionIndex]
     const currentAnswer = answers[currentQuestionIndex]
@@ -114,8 +114,8 @@ class Lesson extends Component {
     if (currentQuestion.category === 'guess') {
       this.setState({
         correct: true,
+        disabledCheckButton: true,
         visibleAnswerBox: true,
-        disabledCheckButton: true
       })
       progress = (currentAnswer && currentAnswer.correct)
         ? questions[currentQuestionIndex].weight
@@ -127,8 +127,8 @@ class Lesson extends Component {
       if (hasWrongWord) {
         this.setState({
           correct: false,
+          disabledCheckButton: true,
           visibleAnswerBox: true,
-          disabledCheckButton: true
         })
         progress = 0
       } else {
@@ -136,16 +136,16 @@ class Lesson extends Component {
         if (this.orderedAnswers(currentAnswer.map(x => x.order))) {
           this.setState({
             correct: true,
+            disabledCheckButton: true,
             visibleAnswerBox: true,
-            disabledCheckButton: true
           })
           progress = currentQuestion.weight
           questions[currentQuestionIndex].correct = true
         } else {
           this.setState({
             correct: false,
+            disabledCheckButton: true,
             visibleAnswerBox: true,
-            disabledCheckButton: true
           })
           progress = 0
           questions[currentQuestionIndex].correct = false
@@ -157,28 +157,28 @@ class Lesson extends Component {
     })
   }
 
-  nextQuestion () {
+  public nextQuestion () {
     const { currentQuestionIndex, questions } = this.state
     const nextStep = currentQuestionIndex + 1
     if (nextStep < questions.length) {
       this.setState({
         currentQuestionIndex: this.state.currentQuestionIndex + 1,
+        disabledCheckButton: false,
         visibleAnswerBox: false,
-        disabledCheckButton: false
       })
     } else {
       this.props.dispatchReachGoal()
       this.props.history.push({
         pathname: '/lesson/finished',
         state: {
+          lessonId: this.props.match.params.id,
           questions: this.state.questions,
-          lessonId: this.props.match.params.id
         }
       })
     }
   }
 
-  orderedAnswers (a, b) {
+  public orderedAnswers (a, b) {
     let m = 0
     let currentNum
     let nextNum
@@ -216,9 +216,9 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 Lesson.propTypes = {
+  dispatchReachGoal: PropTypes.func,
   history: PropTypes.object,
   match: PropTypes.object,
-  dispatchReachGoal: PropTypes.func
 }
 
 export default connect(null, mapDispatchToProps)(Lesson)

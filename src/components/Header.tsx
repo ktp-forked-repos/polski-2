@@ -1,16 +1,14 @@
-/* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
-/* eslint-enable no-unused-vars */
-import { LinkContainer } from 'react-router-bootstrap'
 import PropTypes from 'prop-types'
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { NavItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { LinkContainer } from 'react-router-bootstrap'
 import '../styles/Header.css'
 
 class Header extends Component {
-  render () {
+  public render () {
     return (
-      <Navbar collapseOnSelect>
+      <Navbar collapseOnSelect="true">
         <Navbar.Header>
           <Navbar.Brand>
             <LinkContainer to={'/'}>

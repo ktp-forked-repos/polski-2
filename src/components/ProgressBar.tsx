@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import '../styles/ProgressBar.css'
 
 const ProgressBar = ({progress = 0}) => {
@@ -7,8 +7,7 @@ const ProgressBar = ({progress = 0}) => {
     <div>
       <div className="progress">
         <div className="progress-bar bg-polski" role="progressbar" style={{width: `${progress}%`}}
-          aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
-        </div>
+          aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100"/>
       </div>
       <span>{progress}%</span>
     </div>
