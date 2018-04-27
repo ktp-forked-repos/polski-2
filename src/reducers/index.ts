@@ -1,5 +1,5 @@
-import { REACH_GOAL } from '../constants'
 import { combineReducers } from 'redux'
+import { REACH_GOAL } from '../constants'
 
 const goal = (state = 'not finished', action) => {
   switch (action.type) {

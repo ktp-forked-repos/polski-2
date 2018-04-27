@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
 /* eslint-enable no-unused-vars */
 import PropTypes from 'prop-types'
-import http from '../utils/http'
+import React, { Component } from 'react'
 import Loading from '../components/Loading'
 import '../styles/Skill.css'
+import http from '../utils/http'
 
 class Skill extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class Skill extends Component {
     this.goToLesson = this.goToLesson.bind(this)
   }
 
-  goToLesson (lesson) {
+  public goToLesson (lesson) {
     this.props.history.push({
       pathname: `/lesson/${lesson.id}`,
       state: {
@@ -28,7 +28,7 @@ class Skill extends Component {
     })
   }
 
-  componentWillMount () {
+  public componentWillMount () {
     const {id} = this.props.match.params
     http
       .get(`${process.env.REACT_APP_API}/skills/${id}/lessons`)
@@ -36,7 +36,7 @@ class Skill extends Component {
       .catch(console.error)
   }
 
-  render () {
+  public render () {
     const content = this.state.loading
       ? <Loading />
       : this.state.lessons.map((lesson, index, array) =>
@@ -50,8 +50,8 @@ class Skill extends Component {
             </p>
             <p>
               { lesson.completed
-                ? <button className="btn btn-primary" onClick={() => this.goToLesson(lesson)}>REDO</button>
-                : <button className="btn btn-success" onClick={() => this.goToLesson(lesson)}>Start</button>
+                ? <button className="btn btn-primary" onClick={this.goToLesson(lesson)}>REDO</button>
+                : <button className="btn btn-success" onClick={this.goToLesson(lesson)}>Start</button>
               }
             </p>
           </div>

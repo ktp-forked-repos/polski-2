@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react'
 /* eslint-enable no-unused-vars */
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import '../styles/SkillBadge.css'
 
@@ -31,9 +31,9 @@ const SkillBadge = ({ name, id, active }) => {
 }
 
 SkillBadge.propTypes = {
-  name: PropTypes.string,
+  active: PropTypes.bool,
   id: PropTypes.number,
-  active: PropTypes.bool
+  name: PropTypes.string,
 }
 
 export default SkillBadge
