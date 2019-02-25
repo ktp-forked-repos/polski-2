@@ -1,14 +1,26 @@
-import PropTypes from 'prop-types'
+import Word from '../models/Word'
 import React, { Component } from 'react'
 import '../styles/GuessQuestion.css'
 
-class GuessQuestion extends Component {
-  constructor (props) {
+interface IProps {
+  onChange: Function;
+  options: Word[];
+  question: Word;
+}
+
+interface IState {
+  answer: Word;
+  options: Word[];
+  question: Word;
+}
+
+class GuessQuestion extends Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
     this.state = {
-      answer: {},
+      answer: new Word(),
       options: [],
-      question: [],
+      question: new Word(),
     }
 
     this.getAnswer = this.getAnswer.bind(this)
@@ -19,12 +31,12 @@ class GuessQuestion extends Component {
     this.setState({question, options})
   }
   
-  public componentWillReceiveProps (props) {
+  public componentWillReceiveProps (props: IProps) {
     const { question, options } = props
     this.setState({question, options})
   }
 
-  public getAnswer (option) {
+  public getAnswer (option: Word) {
     this.cleanSelectedAnswers()
     option.selected = true
     this.props.onChange(option)
@@ -46,7 +58,7 @@ class GuessQuestion extends Component {
         <div className="row">
           {options.map(option =>
             <div key={option.id} className="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              <div className={'well well-sm' + (option.selected ? ' selected' : '')} onClick={this.getAnswer(option)}>
+              <div className={'well well-sm' + (option.selected ? ' selected' : '')} onClick={() => this.getAnswer(option)}>
                 {option.text}
               </div>
             </div>
@@ -55,12 +67,6 @@ class GuessQuestion extends Component {
       </div>
     )
   }
-}
-
-GuessQuestion.propTypes = {
-  onChange: PropTypes.func,
-  options: PropTypes.array,
-  question: PropTypes.string,
 }
 
 export default GuessQuestion

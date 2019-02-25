@@ -2,7 +2,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
-import PropTypes from 'prop-types'
+import Word from '../models/Word'
+import { RouteComponentProps } from 'react-router'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reachGoal } from '../actions'
@@ -13,8 +14,22 @@ import ProgressBar from '../components/ProgressBar'
 import '../styles/Lesson.css'
 import http from '../utils/http'
 
-class Lesson extends Component {
-  constructor (props) {
+interface IProps extends RouteComponentProps<any> {
+  dispatchReachGoal: Function
+}
+
+interface IState {
+  answers: Word[]
+  correct: boolean
+  currentQuestionIndex: number
+  disabledCheckButton: boolean
+  progress: number
+  questions: Word[]
+  visibleAnswerBox: boolean
+}
+
+class Lesson extends Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       answers: [],
@@ -31,7 +46,7 @@ class Lesson extends Component {
     this.getAnswer = this.getAnswer.bind(this)
   }
 
-  public componentDidMount (props) {
+  public componentDidMount () {
     const { id } = this.props.match.params
     http
       .get(`${process.env.REACT_APP_API}/lessons/${id}/questions`)
@@ -40,10 +55,10 @@ class Lesson extends Component {
       })
   }
 
-  public getAnswer (answer) {
+  public getAnswer (answer: Word) {
     const { currentQuestionIndex, answers } = this.state
     answers[currentQuestionIndex] = answer
-    this.setState(answers)
+    this.setState({answers})
   }
 
   public render () {
@@ -214,11 +229,5 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(reachGoal())
   }
 })
-
-Lesson.propTypes = {
-  dispatchReachGoal: PropTypes.func,
-  history: PropTypes.object,
-  match: PropTypes.object,
-}
 
 export default connect(null, mapDispatchToProps)(Lesson)

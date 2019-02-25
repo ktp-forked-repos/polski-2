@@ -1,15 +1,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
-import PropTypes from 'prop-types'
+import Word from '../models/Word'
 import React, { Component } from 'react'
 import '../styles/CompoundQuestion.css'
 
-class CompoundQuestion extends Component {
-  constructor (props) {
+interface IProps {
+  onChange: Function;
+  options: Word[];
+  question: Word;
+}
+
+interface IState {
+  availableWords: Word[];
+  question: Word;
+  selectedWords: Word[];
+}
+
+class CompoundQuestion extends Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       availableWords: [],
-      question: '',
+      question: new Word(),
       selectedWords: [],
     }
 
@@ -25,7 +37,7 @@ class CompoundQuestion extends Component {
     })
   }
 
-  public selectWord (option) {
+  public selectWord (option: Word) {
     const selectedWords = [...this.state.selectedWords, option]
     this.setState({
       availableWords: this.state.availableWords.filter(el => el.id !== option.id),
@@ -34,14 +46,14 @@ class CompoundQuestion extends Component {
     this.getAnswer(selectedWords)
   }
 
-  public deselectWord (option) {
+  public deselectWord (option: Word) {
     this.setState({
       availableWords: [...this.state.availableWords, option],
       selectedWords: this.state.selectedWords.filter(el => el.id !== option.id)
     })
   }
 
-  public getAnswer (selectedWords) {
+  public getAnswer (selectedWords: Word[]) {
     this.props.onChange(selectedWords)
   }
 
@@ -56,25 +68,19 @@ class CompoundQuestion extends Component {
           <div className="answer">
             {selectedWords.map(option =>
               <div key={option.id} className="word"
-                onClick={this.deselectWord(option)}>{option.text}</div>
+                onClick={() => this.deselectWord(option)}>{option.text}</div>
             )}
           </div>
         </div>
         <div className="row">
           {availableWords.map(option =>
             <div key={option.id} className="word"
-              onClick={this.selectWord(option)}>{option.text}</div>
+              onClick={() => this.selectWord(option)}>{option.text}</div>
           )}
         </div>
       </div>
     )
   }
-}
-
-CompoundQuestion.propTypes = {
-  onChange: PropTypes.func,
-  options: PropTypes.array,
-  question: PropTypes.string,
 }
 
 export default CompoundQuestion
