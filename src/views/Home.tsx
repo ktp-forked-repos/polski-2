@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 import dotenv from 'dotenv'
+import Skill from '../models/Skill'
 import React, { Component } from 'react'
 import Loading from '../components/Loading'
 import SkillBadge from '../components/SkillBadge'
@@ -11,8 +12,18 @@ import http from '../utils/http'
 
 dotenv.config()
 
-export default class Home extends Component {
-  constructor (props) {
+interface IProps {
+  
+}
+
+interface IState {
+  errorMessage: string
+  loading: boolean
+  skills: Skill[]
+}
+
+export default class Home extends Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       errorMessage: '',

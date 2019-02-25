@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux'
 import { REACH_GOAL } from '../constants'
 
-const goal = (state = 'not finished', action) => {
+interface IAction {
+  payload: any;
+  type: string;
+}
+
+const goal = (state = 'not finished', action: IAction) => {
   switch (action.type) {
     case REACH_GOAL:
       return 'you have reached your daily goal!'

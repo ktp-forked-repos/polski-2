@@ -2,13 +2,22 @@
 /* eslint-enable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-import PropTypes from 'prop-types'
+import { RouteComponentProps } from 'react-router'
+import Word from '../models/Word'
 import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import http from '../utils/http'
 
-class FinishedLesson extends Component {
-  constructor (props) {
+interface IProps extends RouteComponentProps<any> {
+}
+
+interface IState {
+  lessonId: number
+  questions: Word[]
+}
+
+class FinishedLesson extends Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
 
     const { questions, lessonId } = props.location.state
@@ -37,8 +46,5 @@ class FinishedLesson extends Component {
   }
 }
 
-FinishedLesson.propTypes = {
-  location: PropTypes.object
-}
 
 export default FinishedLesson

@@ -1,23 +1,31 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { NavItem } from 'react-bootstrap'
+import { Nav, Navbar, NavItem } from 'react-bootstrap'
+import NavbarBrand from 'react-bootstrap/NavbarBrand'
+import NavbarCollapse from 'react-bootstrap/NavbarCollapse'
+import NavbarToggle from 'react-bootstrap/NavbarToggle'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import '../styles/Header.css'
 
-class Header extends Component {
+interface IProps {
+  goal: string
+}
+
+interface IState {
+  goal: string
+}
+
+class Header extends Component<IProps, IState> {
   public render () {
     return (
-      <Navbar collapseOnSelect="true">
-        <Navbar.Header>
-          <Navbar.Brand>
-            <LinkContainer to={'/'}>
-              <a>Polski</a>
-            </LinkContainer>
-          </Navbar.Brand>
-          <Navbar.Toggle/>
-        </Navbar.Header>
-        <Navbar.Collapse>
+      <Navbar collapseOnSelect={true}>
+        <NavbarBrand>
+          <LinkContainer to={'/'}>
+            <a>Polski</a>
+          </LinkContainer>
+        </NavbarBrand>
+        <NavbarToggle/>
+        <NavbarCollapse>
           <Nav>
             {/*
             <LinkContainer to={'/skill'}>
@@ -27,19 +35,15 @@ class Header extends Component {
               <NavItem eventKey={2}>Lesson</NavItem>
             </LinkContainer>
             */}
-            <NavItem eventKey={2}>Goal: {this.props.goal}</NavItem>
+            <NavItem>Goal: {this.props.goal}</NavItem>
           </Nav>
-        </Navbar.Collapse>
+        </NavbarCollapse>
       </Navbar>
     )
   }
 }
 
-Header.propTypes = {
-  goal: PropTypes.string
-}
-
-function mapStateToProps (state) {
+function mapStateToProps (state: IState) {
   const { goal } = state
   return {
     goal

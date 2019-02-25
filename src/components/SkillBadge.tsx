@@ -2,12 +2,17 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import '../styles/SkillBadge.css'
 
-const SkillBadge = ({ name, id, active }) => {
+interface IProps {
+  active: boolean,
+  id: number,
+  name: string,
+}
+
+const SkillBadge = ({ name, id, active }: IProps) => {
   const badge = active
     ? <LinkContainer to={active ? `/skill/${id}` : ''}>
       <div className={`skill center-block skill-${active ? 'active' : 'inactive'}`}>
@@ -28,12 +33,6 @@ const SkillBadge = ({ name, id, active }) => {
       {/* </div> */}
     </div>
   )
-}
-
-SkillBadge.propTypes = {
-  active: PropTypes.bool,
-  id: PropTypes.number,
-  name: PropTypes.string,
 }
 
 export default SkillBadge

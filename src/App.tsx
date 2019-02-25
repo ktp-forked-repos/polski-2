@@ -16,7 +16,7 @@ class App extends Component {
           <Header />
           <div className="container">
             <Switch>
-              <Route exact="true" path='/' component={Home} />
+              <Route exact={true} path='/' component={Home} />
               <Route path='/skill/:id' component={Skill} />
               <Route path='/lesson/finished' component={FinishedLesson} />
               <Route path='/lesson/:id' component={Lesson} />

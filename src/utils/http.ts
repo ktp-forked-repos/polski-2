@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const header = {
+const headers = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json'
 }
 
-export const get = (url) => axios.get(url, header)
-export const post = (url, data) => axios.post(url, data, header)
-export const put = (url, data) => axios.post(url, data, header)
+export const get = (url: string) => axios.get(url, { headers })
+export const post = (url: string, data: object) => axios.post(url, data, { headers })
+export const put = (url: string, data: object) => axios.post(url, data, { headers })
 
 export default {
   get,
