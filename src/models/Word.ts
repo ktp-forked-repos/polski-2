@@ -5,8 +5,6 @@ class Word {
   public correct: boolean
   public progress: number
   public category: string
-  public expression: Word
-  public options: Word[]
   public weight: number
   
   public constructor() {
@@ -16,8 +14,6 @@ class Word {
     this.correct = false
     this.progress = 0
     this.category = ''
-    this.expression = new Word
-    this.options = []
     this.weight = 0
   }
 }

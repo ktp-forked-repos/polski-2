@@ -7,6 +7,7 @@ class Question {
   public audio: string
   public weight: number
   public lessonId: number
+  public correct: boolean | undefined
   public options: Option[]
   public createdAt: Date
   public updatedAt: Date
@@ -18,6 +19,7 @@ class Question {
     this.audio = ''
     this.weight = 0
     this.lessonId = 0
+    this.correct = false
     this.options = []
     this.createdAt = new Date()
     this.updatedAt = new Date()

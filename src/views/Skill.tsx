@@ -2,14 +2,23 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Loading from '../components/Loading'
 import '../styles/Skill.css'
 import http from '../utils/http'
+import { RouteComponentProps } from 'react-router';
+import Lesson from '../models/Lesson';
 
-class Skill extends Component {
-  constructor (props) {
+interface IProps extends RouteComponentProps<any> {
+}
+
+interface IState {
+  lessons: Lesson[]
+  loading: boolean
+}
+
+class Skill extends Component<IProps, IState> {
+  constructor (props: IProps) {
     super(props)
     this.state = {
       lessons: [],
@@ -19,7 +28,7 @@ class Skill extends Component {
     this.goToLesson = this.goToLesson.bind(this)
   }
 
-  public goToLesson (lesson) {
+  public goToLesson (lesson: Lesson) {
     this.props.history.push({
       pathname: `/lesson/${lesson.id}`,
       state: {
@@ -50,8 +59,8 @@ class Skill extends Component {
             </p>
             <p>
               { lesson.completed
-                ? <button className="btn btn-primary" onClick={this.goToLesson(lesson)}>REDO</button>
-                : <button className="btn btn-success" onClick={this.goToLesson(lesson)}>Start</button>
+                ? <button className="btn btn-primary" onClick={() => this.goToLesson(lesson)}>REDO</button>
+                : <button className="btn btn-success" onClick={() => this.goToLesson(lesson)}>Start</button>
               }
             </p>
           </div>
@@ -68,11 +77,6 @@ class Skill extends Component {
       </div>
     )
   }
-}
-
-Skill.propTypes = {
-  history: PropTypes.object,
-  match: PropTypes.object
 }
 
 export default Skill

@@ -16,7 +16,7 @@
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
-    "babel-jest": "23.6.0",
+    "babel-jest": "^24.1.0",
     "babel-loader": "8.0.5",
     "babel-plugin-named-asset-import": "^0.3.1",
     "babel-preset-react-app": "^7.0.1",
@@ -34,11 +34,12 @@
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.12.4",
     "file-loader": "2.0.0",
+    "font-awesome": "^4.7.0",
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
-    "jest": "23.6.0",
+    "jest": "^24.1.0",
     "jest-pnp-resolver": "1.0.2",
     "jest-resolve": "23.6.0",
     "jest-watch-typeahead": "^0.2.1",
@@ -70,9 +71,15 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
+    "jserver": "json-server db.json --routes routes.json -H $IP -p 8081",
+    "jserver-dev": "json-server db.json --routes routes.json -p 8081",
+    "c9": "ENV=c9;concurrently --kill-others \"npm run jserver\" \"npm start\"",
+    "dev": "concurrently --kill-others \"npm run jserver-dev\" \"npm start\"",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "surge ./build -d https://polski.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -132,5 +139,10 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "json-server": "^0.14.2",
+    "surge": "^0.20.1"
   }
 }

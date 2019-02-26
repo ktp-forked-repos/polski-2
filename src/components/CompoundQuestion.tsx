@@ -3,17 +3,19 @@
 import Word from '../models/Word'
 import React, { Component } from 'react'
 import '../styles/CompoundQuestion.css'
+import Question from '../models/Question';
+import Option from '../models/Option';
 
 interface IProps {
   onChange: Function;
-  options: Word[];
-  question: Word;
+  options: Option[];
+  question: string;
 }
 
 interface IState {
-  availableWords: Word[];
-  question: Word;
-  selectedWords: Word[];
+  availableWords: Option[];
+  question: string;
+  selectedWords: Option[];
 }
 
 class CompoundQuestion extends Component<IProps, IState> {
@@ -21,7 +23,7 @@ class CompoundQuestion extends Component<IProps, IState> {
     super(props)
     this.state = {
       availableWords: [],
-      question: new Word(),
+      question: '',
       selectedWords: [],
     }
 
@@ -37,7 +39,7 @@ class CompoundQuestion extends Component<IProps, IState> {
     })
   }
 
-  public selectWord (option: Word) {
+  public selectWord (option: Option) {
     const selectedWords = [...this.state.selectedWords, option]
     this.setState({
       availableWords: this.state.availableWords.filter(el => el.id !== option.id),
@@ -46,14 +48,14 @@ class CompoundQuestion extends Component<IProps, IState> {
     this.getAnswer(selectedWords)
   }
 
-  public deselectWord (option: Word) {
+  public deselectWord (option: Option) {
     this.setState({
       availableWords: [...this.state.availableWords, option],
       selectedWords: this.state.selectedWords.filter(el => el.id !== option.id)
     })
   }
 
-  public getAnswer (selectedWords: Word[]) {
+  public getAnswer (selectedWords: Option[]) {
     this.props.onChange(selectedWords)
   }
 

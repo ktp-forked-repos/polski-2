@@ -2,9 +2,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-undef */
-import Word from '../models/Word'
 import { RouteComponentProps } from 'react-router'
-import React, { Component } from 'react'
+import React, { Component, Dispatch } from 'react'
 import { connect } from 'react-redux'
 import { reachGoal } from '../actions'
 import CompoundQuestion from '../components/CompoundQuestion'
@@ -13,18 +12,20 @@ import Loading from '../components/Loading'
 import ProgressBar from '../components/ProgressBar'
 import '../styles/Lesson.css'
 import http from '../utils/http'
+import Question from '../models/Question';
+import Option from '../models/Option';
 
 interface IProps extends RouteComponentProps<any> {
   dispatchReachGoal: Function
 }
 
 interface IState {
-  answers: Word[]
+  answers: Array<Option[]>
   correct: boolean
   currentQuestionIndex: number
   disabledCheckButton: boolean
   progress: number
-  questions: Word[]
+  questions: Question[]
   visibleAnswerBox: boolean
 }
 
@@ -55,7 +56,7 @@ class Lesson extends Component<IProps, IState> {
       })
   }
 
-  public getAnswer (answer: Word) {
+  public getAnswer (answer: Option[]) {
     const { currentQuestionIndex, answers } = this.state
     answers[currentQuestionIndex] = answer
     this.setState({answers})
@@ -132,10 +133,10 @@ class Lesson extends Component<IProps, IState> {
         disabledCheckButton: true,
         visibleAnswerBox: true,
       })
-      progress = (currentAnswer && currentAnswer.correct)
+      progress = (currentAnswer && !!currentAnswer.filter(x => x.correct).length)
         ? questions[currentQuestionIndex].weight
         : -(questions[currentQuestionIndex].weight)
-      questions[currentQuestionIndex].correct = currentAnswer.correct
+      questions[currentQuestionIndex].correct = !!currentAnswer.filter(x => x.correct).length
     } else {
       // Check if there is any incorrect word
       const hasWrongWord = currentAnswer.map(x => x.correct).includes(false)
@@ -193,7 +194,7 @@ class Lesson extends Component<IProps, IState> {
     }
   }
 
-  public orderedAnswers (a, b) {
+  public orderedAnswers (a: any, b = 0) {
     let m = 0
     let currentNum
     let nextNum
@@ -224,7 +225,7 @@ class Lesson extends Component<IProps, IState> {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
   dispatchReachGoal: () => {
     dispatch(reachGoal())
   }

@@ -1,17 +1,19 @@
 import Word from '../models/Word'
 import React, { Component } from 'react'
 import '../styles/GuessQuestion.css'
+import Question from '../models/Question';
+import Option from '../models/Option';
 
 interface IProps {
   onChange: Function;
-  options: Word[];
-  question: Word;
+  options: Option[];
+  question: string;
 }
 
 interface IState {
   answer: Word;
-  options: Word[];
-  question: Word;
+  options: Option[];
+  question: string;
 }
 
 class GuessQuestion extends Component<IProps, IState> {
@@ -20,7 +22,7 @@ class GuessQuestion extends Component<IProps, IState> {
     this.state = {
       answer: new Word(),
       options: [],
-      question: new Word(),
+      question: '',
     }
 
     this.getAnswer = this.getAnswer.bind(this)
@@ -36,7 +38,7 @@ class GuessQuestion extends Component<IProps, IState> {
     this.setState({question, options})
   }
 
-  public getAnswer (option: Word) {
+  public getAnswer (option: Option) {
     this.cleanSelectedAnswers()
     option.selected = true
     this.props.onChange(option)
