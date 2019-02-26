@@ -21,7 +21,6 @@
     "babel-plugin-named-asset-import": "^0.3.1",
     "babel-preset-react-app": "^7.0.1",
     "bfj": "6.1.1",
-    "bootstrap": "^4.3.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
@@ -52,7 +51,6 @@
     "postcss-safe-parser": "4.0.1",
     "react": "^16.8.3",
     "react-app-polyfill": "^0.2.1",
-    "react-bootstrap": "^1.0.0-beta.5",
     "react-dev-utils": "^7.0.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",
@@ -73,7 +71,7 @@
   "scripts": {
     "jserver": "json-server db.json --routes routes.json -H $IP -p 8081",
     "jserver-dev": "json-server db.json --routes routes.json -p 8081",
-    "c9": "ENV=c9;concurrently --kill-others \"npm run jserver\" \"npm start\"",
+    "c9": "env-cmd .env.c9 concurrently --kill-others \"npm run jserver\" \"npm start\"",
     "dev": "concurrently --kill-others \"npm run jserver-dev\" \"npm start\"",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
@@ -142,6 +140,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "env-cmd": "^8.0.2",
     "json-server": "^0.14.2",
     "surge": "^0.20.1"
   }
