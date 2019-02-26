@@ -1,4 +1,5 @@
-.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand {
+header {
+  background-color: red;
   color: white;
 }
 

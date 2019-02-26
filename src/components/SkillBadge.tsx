@@ -14,24 +14,26 @@ interface IProps {
 
 const SkillBadge = ({ name, id, active }: IProps) => {
   const badge = active
-    ? <LinkContainer to={active ? `/skill/${id}` : ''}>
+    ? 
+    <LinkContainer to={active ? `/skill/${id}` : ''}>
       <div className={`skill center-block skill-${active ? 'active' : 'inactive'}`}>
         &nbsp;
       </div>
     </LinkContainer>
-    : <div>
+    : 
+    <div>
       <div className={`skill center-block skill-${active ? 'active' : 'inactive'}`}>
         &nbsp;
       </div>
     </div>
 
   return (
-    <div className="text-center">
-      {/* <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4"> */}
+    <React.Fragment>
       {badge}
-      {name}
-      {/* </div> */}
-    </div>
+      <div className="label">
+        {name}
+      </div>
+    </React.Fragment>
   )
 }
 

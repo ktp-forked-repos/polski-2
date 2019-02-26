@@ -37,7 +37,7 @@ export default class Home extends Component<IProps, IState> {
       .get(`${process.env.REACT_APP_API}/skills`)
       .then(response => this.setState({ skills: response.data, loading: false }))
       .catch(error => {
-        window.console.log(error)
+        window.console.error(error)
         this.setState({ errorMessage: 'An error occured. Refresh the page.', loading: false })
       })
   }
@@ -50,12 +50,14 @@ export default class Home extends Component<IProps, IState> {
           Home
         </p>
         <h2>{this.state.errorMessage}</h2>
-        { this.state.skills.map((skill, id) =>
-          <div className="col-lg-3 col-md-3 col-sm-4 col-xs-4" key={id}>
-            <SkillBadge {...skill} />
-          </div>
-          // <SkillBadge key={skill.id} name={skill.name} id={skill.id} active={skill.active} />
-        ) }
+        <div className="skillsContainer">
+          { this.state.skills.map((skill, id) =>
+            <div className="badgeContainer" key={id}>
+              <SkillBadge {...skill} />
+            </div>
+            // <SkillBadge key={skill.id} name={skill.name} id={skill.id} active={skill.active} />
+          ) }
+        </div>
       </div>
     return content
   }

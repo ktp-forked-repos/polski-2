@@ -1,3 +1,33 @@
+.skillsContainer {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.badgeContainer {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+@media screen and (min-width: 1024px) {
+   .badgeContainer {
+      width: 25%;
+   }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+   .badgeContainer {
+      width: 50%;
+   }
+}
+
+@media screen and (max-width: 767px) {
+   .badgeContainer {
+      width: 100%;
+   }
+}
+
+
 .centered {
    text-align: center;
    font-size: 0;

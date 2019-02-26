@@ -5,7 +5,7 @@
 import { RouteComponentProps } from 'react-router'
 import React, { Component, Dispatch } from 'react'
 import { connect } from 'react-redux'
-import { reachGoal } from '../actions'
+import { reachGoal } from '../redux/actions'
 import CompoundQuestion from '../components/CompoundQuestion'
 import GuessQuestion from '../components/GuessQuestion'
 import Loading from '../components/Loading'
